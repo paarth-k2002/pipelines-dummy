@@ -9,14 +9,28 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+stages:
+  - stage: Stage1
+    displayName: Stage 1
+    jobs:
+      - job: build
+        displayName: Build job
+        steps:
+          - script: echo this is a BUILD job.
+            displayName: 'Build project'
+  - stage: Stage2
+    displayName: Stage 2
+    jobs:
+      - job: build
+        displayName: Build job
+        steps:
+          - script: echo this is a BUILD job.
+            displayName: 'Build project'
+  - stage: Stage3
+    displayName: Stage 3
+    jobs:
+      - job: build
+        displayName: Build job
+        steps:
+          - script: echo this is a BUILD job.
+            displayName: 'Build project'
