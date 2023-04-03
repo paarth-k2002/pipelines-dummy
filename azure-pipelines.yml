@@ -38,3 +38,23 @@ stages:
         steps:
           - script: echo this is a BUILD job.
             displayName: 'Build project'
+  - stage: Stage4
+    displayName: Stage 4
+    jobs:
+      - deployment: deploy
+        displayName: Deployment
+        environment: Stage4
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo this is a Deployment job
+                  displayName: 'Dep job stage 4'
+  - stage: Stage5
+    displayName: Stage 5
+    jobs:
+      - job: build
+        displayName: Build job
+        steps:
+          - script: echo this is a BUILD job.
+            displayName: 'Build project'
