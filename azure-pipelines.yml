@@ -21,11 +21,15 @@ stages:
   - stage: Stage2
     displayName: Stage 2
     jobs:
-      - job: build
-        displayName: Build job
-        steps:
-          - script: echo this is a BUILD job.
-            displayName: 'Build project'
+      - deployment: deploy
+        displayName: Deployment
+        environment: Stage2
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo this is a Deployment job
+                  displayName: 'Dep job stage 2'
   - stage: Stage3
     displayName: Stage 3
     jobs:
