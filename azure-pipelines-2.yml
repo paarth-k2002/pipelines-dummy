@@ -40,9 +40,6 @@ stages:
             - script: echo parallel job 2
               displayName: "Para Job 2"
 - stage: Deploy
-  dependsOn: 
-  - Test1
-  - Test2
   jobs:
   - job: Exit
     steps:
