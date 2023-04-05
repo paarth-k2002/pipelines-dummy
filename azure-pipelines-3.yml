@@ -15,6 +15,12 @@ stages:
   - job: Build
     steps:
     - script: echo "Building..."
+    - task: CreateWorkItem@1
+      inputs:
+        workItemType: 'Task'
+        title: '$(Build.BuildId)'
+        assignedTo: 'Nisarg Koradia nisarg.koradia@opshub.com'
+
 - stage: Check1
   jobs:
   - deployment: deploy
