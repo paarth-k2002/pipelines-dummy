@@ -1,0 +1,44 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: start
+  jobs:
+  - job: Build
+    steps:
+    - script: echo "Building..."
+- stage: Check1
+  jobs:
+  - deployment: deploy
+    displayName: Check 1
+    environment: Check 1
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - script: echo parallel job 1
+              displayName: "Check Job 1"
+- stage: wait
+  jobs:
+  - job: Wait
+    steps:
+    - script: echo "Waiting..."
+- stage: Check1
+  jobs:
+  - deployment: deploy
+    displayName: Check 2
+    environment: Check 2
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - script: echo parallel job 2
+              displayName: "Check Job 2"
