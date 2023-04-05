@@ -31,7 +31,7 @@ stages:
   - job: Wait
     steps:
     - script: echo "Waiting..."
-- stage: Check1
+- stage: Check2
   jobs:
   - deployment: deploy
     displayName: Check 2
