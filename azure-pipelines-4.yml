@@ -10,7 +10,7 @@ stages:
     steps:
     - script: |
         echo "Building..."
-        bash -c "sleep 60"  # Adding a 60-second wait to simulate build time
+        timeout \t 60  # Adding a 60-second wait to simulate build time
       displayName: 'Build step'
 
 - stage: Deploy
@@ -21,7 +21,7 @@ stages:
     steps:
     - script: |
         echo "Deployment job running"
-        bash -c "sleep 60"  # Add delay to simulate deployment
+        timeout \t 60  # Add delay to simulate deployment
       displayName: 'Deploy Job'
 
 - stage: Exit
