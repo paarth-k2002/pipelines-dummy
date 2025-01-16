@@ -9,8 +9,8 @@ stages:
   - job: Build
     steps:
     - script: |
-        echo "Building..."
-        timeout /t 60
+        cmd.exe /c echo "Building..."
+        cmd.exe /ctimeout /t 60
       displayName: 'Build step'
 
 - stage: Deploy
