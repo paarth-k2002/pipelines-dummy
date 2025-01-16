@@ -1,8 +1,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: pool1
 
 stages:
 - stage: Build
