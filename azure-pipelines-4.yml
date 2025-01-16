@@ -1,8 +1,3 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 trigger:
 - main
 
@@ -14,33 +9,31 @@ stages:
   jobs:
   - job: Build
     steps:
-    - script: echo "Building..." sleep 60
-- stage: parallel1
-  dependsOn: Build
-  jobs:
-  - deployment: deploy
-    displayName: Parallel deploy 1
-    environment: Para 1
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - script: echo parallel job 1
-              displayName: "Para Job 1"
-- stage: parallel2
-  dependsOn: Build
-  jobs:
-  - deployment: deploy
-    displayName: Parallel deploy 2
-    environment: Para 2
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - script: echo parallel job 2
-              displayName: "Para Job 2"
+    - script: |
+        echo "Building..."
+        sleep 60  # Adding a 60-second wait to simulate build time
+      displayName: 'Build step'
+
 - stage: Deploy
+  dependsOn: Build
+  jobs:
+  - deployment: deploy
+    displayName: 'Deploy to Environment'
+    environment: Para1
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - script: |
+                echo "Deployment job running"
+                sleep 60  # Add delay to simulate deployment
+              displayName: 'Deploy Job'
+
+- stage: Exit
+  dependsOn: Deploy
   jobs:
   - job: Exit
     steps:
-    - script: echo "exiting"
+    - script: |
+        echo "Exiting after deployment"
+      displayName: 'Exit step'
