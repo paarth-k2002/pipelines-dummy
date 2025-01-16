@@ -1,0 +1,89 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  artifactName: 'drop'
+
+jobs:
+- job: BuildAndTest
+  displayName: 'Build and Test Application'
+  steps:
+
+    - task: UseDotNet@2
+      displayName: 'Install .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: '6.x'
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before checkout'
+
+    - task: Checkout@1
+      displayName: 'Checkout source code'
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before restoring dependencies'
+
+    - script: |
+        echo 'Restoring dependencies...'
+        dotnet restore
+      displayName: 'Restore dependencies'
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before building'
+
+    - script: |
+        echo 'Building application...'
+        dotnet build --configuration $(buildConfiguration)
+      displayName: 'Build application'
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before running tests'
+
+    - script: |
+        echo 'Running tests...'
+        dotnet test --configuration $(buildConfiguration)
+      displayName: 'Run tests'
+
+- job: Deploy
+  displayName: 'Deploy Application'
+  dependsOn: BuildAndTest
+  condition: succeeded()
+  steps:
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before publishing artifacts'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: $(artifactName)
+        publishLocation: 'Container'
+
+    - script: |
+        echo 'Pausing for 60 seconds...'
+        sleep 60  # Pauses the pipeline for 60 seconds
+      displayName: 'Wait 1 minute before deployment'
+
+    - script: |
+        echo 'Deploying application to the production environment...'
+        # Dummy deploy command (replace with actual deployment script)
+        echo 'Deployment Complete'
+      displayName: 'Deploy to Production'
