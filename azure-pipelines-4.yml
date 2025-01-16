@@ -1,7 +1,7 @@
 trigger:
 - main
 
-pool: pool1
+pool: pool1  # Your custom Windows pool
 
 stages:
 - stage: Build
@@ -9,8 +9,7 @@ stages:
   - job: Build
     steps:
     - script: |
-        cmd.exe /c echo "Building..."
-        cmd.exe /c timeout /t 60
+        echo "Building..."
       displayName: 'Build step'
 
 - stage: Deploy
