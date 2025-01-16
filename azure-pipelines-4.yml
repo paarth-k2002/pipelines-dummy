@@ -6,10 +6,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
-  artifactName: 'drop'
-
 jobs:
 - job: BuildAndTest
   displayName: 'Build and Test Application'
