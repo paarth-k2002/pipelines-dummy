@@ -73,7 +73,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Build Artifacts'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        PathtoPublish: $(Build.ArtifactStagingDirectory)  # Ensure correct path is used
         ArtifactName: $(artifactName)
         publishLocation: 'Container'
 
