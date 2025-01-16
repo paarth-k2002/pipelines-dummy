@@ -13,3 +13,23 @@ stages:
         echo "Building..."
         sleep 60  # Adding a 60-second wait to simulate build time
       displayName: 'Build step'
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    displayName: 'Deploy to Environment'
+    steps:
+    - script: |
+        echo "Deployment job running"
+        sleep 60  # Add delay to simulate deployment
+      displayName: 'Deploy Job'
+
+- stage: Exit
+  dependsOn: Deploy
+  jobs:
+  - job: Exit
+    steps:
+    - script: |
+        echo "Exiting after deployment"
+      displayName: 'Exit step'
