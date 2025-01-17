@@ -9,6 +9,7 @@ stages:
   - job: Build
     steps:
     - script: |
+        timeout \t
         echo "Building..."
       displayName: 'Build step'
 
