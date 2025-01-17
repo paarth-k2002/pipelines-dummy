@@ -1,7 +1,7 @@
 trigger:
 - main
 
-pool: pool1  # Your custom Windows pool some change
+pool: pool12  # Your custom Windows pool some change
 
 stages:
 - stage: Build
@@ -9,7 +9,6 @@ stages:
   - job: Build
     steps:
     - script: |
-        timeout \t
         echo "Building..."
       displayName: 'Build step'
 
