@@ -10,7 +10,6 @@ stages:
     steps:
     - script: |
         echo "Building..."
-        sleep 60
       displayName: 'Build step'
 
 - stage: Deploy
