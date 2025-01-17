@@ -1,7 +1,7 @@
 trigger:
 - main
 
-pool: pool1  # Your custom Windows pool
+pool: pool1  # Your custom Windows pool some change
 
 stages:
 - stage: Build
